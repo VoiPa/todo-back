@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using ToDoList.DAL;
+using ToDoList.DAL.Services.Implementations;
+using ToDoList.DAL.Services.Interfaces;
 
 namespace ToDoList.API
 {
@@ -29,9 +28,10 @@ namespace ToDoList.API
                 options.UseMySql(_configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddControllers();
-            services.AddSwaggerGen(options =>
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddSwaggerGen(x =>
             {
-                options.SwaggerDoc("v1",
+                x.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
                         Title = "TO-DO List",
