@@ -4,13 +4,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using ToDoList.API.Services.Interfaces;
 using ToDoList.BL.Models;
-using ToDoList.DAL.Services.Interfaces;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-namespace ToDoList.DAL.Services.Implementations
+namespace ToDoList.API.Services.Implementations
 {
     public class TokenService : ITokenService
     {

@@ -1,6 +1,6 @@
 using ToDoList.BL.Models;
 
-namespace ToDoList.DAL.Services.Interfaces
+namespace ToDoList.API.Services.Interfaces
 {
     public interface ITokenService
     {

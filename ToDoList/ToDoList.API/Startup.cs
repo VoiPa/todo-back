@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ToDoList.API.Services.Implementations;
+using ToDoList.API.Services.Interfaces;
 using ToDoList.DAL;
 using ToDoList.DAL.Services.Implementations;
 using ToDoList.DAL.Services.Interfaces;
@@ -32,16 +34,17 @@ namespace ToDoList.API
             });
             /* Here we are adding .AddNewtonsoftJson(); because it returns another response in api and we must add
              newtonsoft.Json.JsonSerializationException: Self referencing loop detected for property 'user' with 
-             type 'ToDoList.BL.Models.User'.*/ 
+             type 'ToDoList.BL.Models.User'.*/
             services.AddControllers().AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ReferenceLoopHandling =
                     Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthRepository, AuthRepository>();
-            
-            //JWTBearer
+
+            /* JWTBearer functionality for access data after authentication */
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -50,13 +53,13 @@ namespace ToDoList.API
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey =
                             new SymmetricSecurityKey(
-                                Encoding.ASCII.GetBytes(_configuration.GetSection("AppSettings:Token").Value)),
+                                Encoding.ASCII.GetBytes(_configuration["TokenKey"])),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
                 });
-            
-            //SWAGGER
+
+            /* SWAGGER */
             services.AddSwaggerGen(x =>
             {
                 x.SwaggerDoc("v1",
@@ -81,11 +84,12 @@ namespace ToDoList.API
             //app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            
+            app.UseAuthentication();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-           
         }
     }
 }
