@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using ToDoList.API.Services.Implementations;
 using ToDoList.API.Services.Interfaces;
 using ToDoList.DAL;
@@ -19,6 +20,17 @@ namespace ToDoList.API.Extensions
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseMySql(configuration.GetConnectionString("DefaultConnection"));
+            });
+            
+            /* SWAGGER */
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "TO-DO List",
+                        Version = "v1"
+                    });
             });
             return services;
         }
