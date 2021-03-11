@@ -35,9 +35,7 @@ namespace ToDoList.API
                 app.UseSwagger();
                 app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "TO-DO List API"); });
             }
-
-            //app.UseHttpsRedirection();
-
+            
             app.UseRouting();
 
             app.UseAuthentication();

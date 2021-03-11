@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ToDoList.BL.Models
 {
@@ -11,8 +13,11 @@ namespace ToDoList.BL.Models
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        private string Role { get; set; }
+        public string Role { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
+
+        public IEnumerable<ToDoItem> ToDoItems{ get; set; }
+        
     }
 }

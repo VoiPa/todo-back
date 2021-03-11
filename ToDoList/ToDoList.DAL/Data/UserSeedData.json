@@ -1,0 +1,101 @@
+[
+  {
+    "Email": "jeffersonguerrero@cowtown.com",
+    "Role": "role2",
+    "CreateDate": "2021-03-13T01:51:47 -02:00",
+    "UpdateDate": "2021-04-07T08:06:00 -03:00",
+    "ToDoItems": [
+      {
+        "Title": "ipsum ad qui id pariatur",
+        "CreatedAt": "2021-03-16T08:06:48 -02:00",
+        "IsDone": false
+      },
+      {
+        "Title": "cupidatat cillum tempor excepteur consectetur",
+        "CreatedAt": "2021-04-01T04:47:49 -03:00",
+        "IsDone": false
+      },
+      {
+        "Title": "excepteur officia pariatur ad cillum",
+        "CreatedAt": "2021-03-25T07:10:22 -02:00",
+        "IsDone": true
+      },
+      {
+        "Title": "occaecat proident eiusmod consectetur esse",
+        "CreatedAt": "2021-03-27T02:16:48 -02:00",
+        "IsDone": true
+      },
+      {
+        "Title": "ullamco amet voluptate proident minim",
+        "CreatedAt": "2021-04-09T09:12:02 -03:00",
+        "IsDone": true
+      }
+    ]
+  },
+  {
+    "Email": "jeffersonguerrero@cowtown.com",
+    "Role": "role2",
+    "CreateDate": "2021-03-25T08:45:50 -02:00",
+    "UpdateDate": "2021-03-14T08:27:56 -02:00",
+    "ToDoItems": [
+      {
+        "Title": "non do ullamco exercitation nisi",
+        "CreatedAt": "2021-03-25T03:31:09 -02:00",
+        "IsDone": true
+      },
+      {
+        "Title": "anim culpa sit laboris eiusmod",
+        "CreatedAt": "2021-03-29T10:04:56 -03:00",
+        "IsDone": true
+      },
+      {
+        "Title": "ipsum cillum culpa voluptate irure",
+        "CreatedAt": "2021-03-30T02:37:38 -03:00",
+        "IsDone": true
+      },
+      {
+        "Title": "dolore nisi nulla cillum sint",
+        "CreatedAt": "2021-04-10T10:11:12 -03:00",
+        "IsDone": true
+      },
+      {
+        "Title": "sunt et ad laboris ut",
+        "CreatedAt": "2021-03-17T02:55:03 -02:00",
+        "IsDone": false
+      }
+    ]
+  },
+  {
+    "Email": "jeffersonguerrero@cowtown.com",
+    "Role": "role2",
+    "CreateDate": "2021-03-30T04:56:15 -03:00",
+    "UpdateDate": "2021-03-29T08:50:19 -03:00",
+    "ToDoItems": [
+      {
+        "Title": "ut esse ullamco Lorem duis",
+        "CreatedAt": "2021-03-17T10:47:29 -02:00",
+        "IsDone": false
+      },
+      {
+        "Title": "reprehenderit ut minim sunt id",
+        "CreatedAt": "2021-04-09T11:13:08 -03:00",
+        "IsDone": true
+      },
+      {
+        "Title": "sint adipisicing esse est reprehenderit",
+        "CreatedAt": "2021-04-08T06:17:24 -03:00",
+        "IsDone": false
+      },
+      {
+        "Title": "non sint voluptate mollit magna",
+        "CreatedAt": "2021-04-04T10:46:40 -03:00",
+        "IsDone": false
+      },
+      {
+        "Title": "ad deserunt eiusmod ad proident",
+        "CreatedAt": "2021-03-18T09:19:06 -02:00",
+        "IsDone": false
+      }
+    ]
+  }
+]
