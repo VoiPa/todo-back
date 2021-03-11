@@ -7,7 +7,7 @@ namespace ToDoList.API.DTO
         [Required]
         public string Email { get; set; }
         [Required]
-        [StringLength(8, MinimumLength = 4,ErrorMessage = "You must specify password between 4 and 8 characters !")]
+        [StringLength(100, MinimumLength = 12,ErrorMessage = "You must specify password minimum length 12 characters !")]
         public string Password { get; set; }
     }
 }
