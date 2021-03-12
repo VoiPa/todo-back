@@ -17,8 +17,6 @@ namespace ToDoList.DAL.Services.Implementations
         {
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            appUser.PasswordHash = passwordHash;
-            appUser.PasswordSalt = passwordSalt;
             await _context.Users.AddAsync(appUser);
             await _context.SaveChangesAsync();
             return appUser;
@@ -39,27 +37,27 @@ namespace ToDoList.DAL.Services.Implementations
                 return null;
             }
 
-            if (!VerifyPasswordHash(password, user.PasswordHash,user.PasswordSalt))
-            {
-                return null;
-            }
+            // if (!VerifyPasswordHash(password, user.PasswordHash,user.PasswordSalt))
+            // {
+            //     return null;
+            // }
 
             return user;
         }
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != passwordHash[i])
-                    {
-                        return false;
-                    }
-                }
-            }
+            // using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            // {
+            //     var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            //     for (int i = 0; i < computedHash.Length; i++)
+            //     {
+            //         if (computedHash[i] != passwordHash[i])
+            //         {
+            //             return false;
+            //         }
+            //     }
+            // }
 
             return true;
         }
