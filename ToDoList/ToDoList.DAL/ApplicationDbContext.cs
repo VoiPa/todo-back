@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -9,8 +10,18 @@ namespace ToDoList.DAL
 {
     public class ApplicationDbContext:DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options){ }
-        public virtual DbSet<User> Users { get; set; } 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+            ApplyMigrations(this);
+        }
+        public void ApplyMigrations(ApplicationDbContext context)
+        {
+            if (context.Database.GetPendingMigrations().Any())
+            {
+                context.Database.Migrate();
+            }
+        }
+        public virtual DbSet<AppUser> Users { get; set; } 
     }
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext> 
     { 
@@ -22,5 +33,6 @@ namespace ToDoList.DAL
             builder.UseMySql(connectionString); 
             return new ApplicationDbContext(builder.Options); 
         } 
+        
     }
 }

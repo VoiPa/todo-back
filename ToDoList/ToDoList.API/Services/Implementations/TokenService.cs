@@ -20,12 +20,12 @@ namespace ToDoList.API.Services.Implementations
             _key=new SymmetricSecurityKey (Encoding.UTF8.GetBytes(config.GetSection("TokenKey").Value));
         }
 
-        public string CreateToken(User user)
+        public string CreateToken(AppUser appUser)
         {
             /* adding claims */
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.Email)
+                new Claim(JwtRegisteredClaimNames.NameId, appUser.Email)
             };
             
             /*  creating credentials */
