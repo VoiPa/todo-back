@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace ToDoList.BL.Models
 {
-    public class User : BaseEntity
+    public class AppUser : BaseEntity
     {
-        public User()
+        public AppUser()
         {
             Role = "role2";
         }

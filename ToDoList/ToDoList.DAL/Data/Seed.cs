@@ -19,7 +19,7 @@ namespace ToDoList.DAL.Data
             }
 
             var userData = await File.ReadAllTextAsync("../ToDoList.DAL/Data/UserSeedData.json");
-            var users = JsonConvert.DeserializeObject<List<User>>(userData);
+            var users = JsonConvert.DeserializeObject<List<AppUser>>(userData);
 
             foreach (var user in users)
             {
