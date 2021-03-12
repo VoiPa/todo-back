@@ -13,15 +13,15 @@ namespace ToDoList.DAL.Services.Implementations
         {
             _context = context;
         }
-        public async Task<User> Register(User user, string password)
+        public async Task<AppUser> Register(AppUser appUser, string password)
         {
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
-            await _context.Users.AddAsync(user);
+            appUser.PasswordHash = passwordHash;
+            appUser.PasswordSalt = passwordSalt;
+            await _context.Users.AddAsync(appUser);
             await _context.SaveChangesAsync();
-            return user;
+            return appUser;
         }
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
@@ -31,7 +31,7 @@ namespace ToDoList.DAL.Services.Implementations
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
-        public async Task<User> Login(string email, string password)
+        public async Task<AppUser> Login(string email, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
             if (user == null)

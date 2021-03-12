@@ -21,7 +21,7 @@ namespace ToDoList.API.Controllers
             return "Just text";
         }
         [HttpGet("not-found")]
-        public ActionResult<User> GetNotFound()
+        public ActionResult<AppUser> GetNotFound()
         {
             var user = _context.Users.Find(-1);
             if (user == null)
