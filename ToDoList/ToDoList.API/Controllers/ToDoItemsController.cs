@@ -18,31 +18,19 @@ namespace ToDoList.API.Controllers
         private readonly IToDoItemsRepository _todoService;
         private readonly ILogger<ToDoItemsController> _logger;
         private readonly ApplicationDbContext _dbContext;
-        private readonly UserManager<AppUser> _userManager;
 
         public ToDoItemsController(IToDoItemsRepository todoService,  ILogger<ToDoItemsController> logger, 
-            ApplicationDbContext dbContext, UserManager<AppUser> userManager)
+            ApplicationDbContext dbContext)
         {
             _todoService = todoService;
             _logger = logger;
             _dbContext = dbContext;
-            _userManager = userManager;
         }
 
         // Get all items
         [HttpGet("admin")]
         public async Task<ActionResult<IEnumerable<ToDoItem>>> GetAllAsync()
         {
-            // if (await _todoService.UserExists(App.Email))
-            // {
-            //     return BadRequest("Username alredy exists");
-            // }
-           
-            // if(user == null)
-            // {
-            //     _logger.LogError($"Unknown user tried getting all items.");
-            //     return Unauthorized();
-            // }
             var items = new List<ToDoItem>();
             items.AddRange(await _todoService.AllItemsAsync());
             _logger.LogInformation("Returned all items for admin");
@@ -52,20 +40,20 @@ namespace ToDoList.API.Controllers
         [HttpPost("user")]
         public async Task<ActionResult<IEnumerable<ToDoItem>>> GetAllAsyncByUser()
         {
-            var user = await _userManager.GetUserAsync(User);
-            string email = User.FindFirst(ClaimTypes.Email)?.Value;
-            //var user = _dbContext.Users.
-           // var user = _dbContext.Users.SingleOrDefault(x => x.Email == email);
-            if(user == null)
-            {
-                _logger.LogError($"Unknown user tried getting all items.");
-                return Unauthorized();
-            }
-            var items = new List<ToDoItem>();
-            items.AddRange(await _todoService.GetCompleteItemsAsync(user));
-            items.AddRange(await _todoService.GetIncompleteItemsAsync(user));
-            
-            _logger.LogInformation($"Returned all items to {user.Email}");
+           //  var user = await _userManager.GetUserAsync(User);
+           //  string email = User.FindFirst(ClaimTypes.Email)?.Value;
+           //  //var user = _dbContext.Users.
+           // // var user = _dbContext.Users.SingleOrDefault(x => x.Email == email);
+           //  if(user == null)
+           //  {
+           //      _logger.LogError($"Unknown user tried getting all items.");
+           //      return Unauthorized();
+           //  }
+           //  var items = new List<ToDoItem>();
+           //  items.AddRange(await _todoService.GetCompleteItemsAsync(user));
+           //  items.AddRange(await _todoService.GetIncompleteItemsAsync(user));
+           //  
+           //  _logger.LogInformation($"Returned all items to {user.Email}");
             return Ok();
         }
 
