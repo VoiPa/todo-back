@@ -8,13 +8,14 @@ namespace ToDoList.BL.Models
     [Table("ToDoItems")]
     public class ToDoItem : BaseEntity
     {
+        [ForeignKey("AppUser")]
         public int AppUserId { get; set; }
 
         // prop for cascade delete relation
         public AppUser AppUser { get; set; }
 
         [Required(ErrorMessage = "Description is mandatory!!!")]
-        [StringLength(500, ErrorMessage = "The description cannot be longer than 500 characters")]
+        [StringLength(100, ErrorMessage = "The description cannot be longer than 500 characters")]
         public string TaskDescription { get; set; }
 
         public DateTimeOffset? CreatedAt { get; set; }

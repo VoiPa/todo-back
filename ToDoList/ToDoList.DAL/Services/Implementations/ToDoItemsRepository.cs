@@ -21,6 +21,14 @@ namespace ToDoList.DAL.Services.Implementations
         {
             return await _context.ToDo.ToArrayAsync();
         }
+        
+        public async Task<bool> DeleteTodoAsync(int id)
+        {
+            var todo = await _context.ToDo.FindAsync(id);
+            _context.ToDo.Remove(todo);
+            var deleted = await _context.SaveChangesAsync();
+            return deleted > 0;
+        }
 
         public async Task<IEnumerable<ToDoItem>> GetIncompleteItemsAsync(AppUser user)
         {
