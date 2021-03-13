@@ -1,7 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +8,7 @@ using ToDoList.BL.Models;
 
 namespace ToDoList.DAL
 {
-    public class ApplicationDbContext:IdentityDbContext<AppUser,AppRole,int,IdentityUserClaim<int>,AppUserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>,IdentityUserToken<int>>
+    public class ApplicationDbContext:DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -22,29 +21,8 @@ namespace ToDoList.DAL
                 context.Database.Migrate();
             }
         }
-        public DbSet<ToDoItem> ToDo { get; set; }
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            builder.Entity<AppUser>()
-                .HasMany(ur => ur.UserRoles)
-                .WithOne(u => u.User)
-                .HasForeignKey(ur => ur.UserId)
-                .IsRequired();
-
-            builder.Entity<AppRole>()
-                .HasMany(ur => ur.UserRoles)
-                .WithOne(u => u.Role)
-                .HasForeignKey(ur => ur.RoleId)
-                .IsRequired();
-            // builder.Entity<AppUser>()
-            //     .HasMany(ur => ur.ToDoItems)
-            //     .WithOne(u => u.AppUser)
-            //     .HasForeignKey(ur => ur.AppUserId)
-            //     .IsRequired();
-        }
+        public virtual DbSet<AppUser> Users { get; set; } 
     }
-    
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext> 
     { 
         public ApplicationDbContext CreateDbContext(string[] args) 

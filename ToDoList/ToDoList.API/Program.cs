@@ -1,12 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using ToDoList.BL.Models;
 using ToDoList.DAL;
 using ToDoList.DAL.Data;
 
@@ -22,15 +20,13 @@ namespace ToDoList.API
             try
             {
                 var context = services.GetRequiredService<ApplicationDbContext>();
-                var userManager = services.GetRequiredService<UserManager<AppUser>>();
-                var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                 await context.Database.MigrateAsync();
-                await Seed.SeedUsers(userManager, roleManager);
+                await Seed.SeedUsers(context);
             }
             catch (Exception ex)
             {
                 var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occurred during migration");
+                logger.LogError(ex, "An error occured during migration");
             }
 
             await host.RunAsync();

@@ -17,7 +17,6 @@ namespace ToDoList.API.Extensions
         {
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthRepository, AuthRepository>();
-            // services.AddScoped<IToDoItemsRepository, ToDoItemsRepository>();
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseMySql(configuration.GetConnectionString("DefaultConnection"));
@@ -30,27 +29,8 @@ namespace ToDoList.API.Extensions
                     new OpenApiInfo
                     {
                         Title = "TO-DO List",
-                        Version = "v1",
+                        Version = "v1"
                     });
-                x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
-                    In = ParameterLocation.Header, 
-                    Description = "Please insert JWT with Bearer into field",
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey 
-                });
-                x.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                    { 
-                        new OpenApiSecurityScheme 
-                        { 
-                            Reference = new OpenApiReference 
-                            { 
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer" 
-                            } 
-                        },
-                        new string[] { } 
-                    } 
-                });
             });
             return services;
         }
