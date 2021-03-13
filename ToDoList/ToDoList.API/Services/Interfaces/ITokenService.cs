@@ -1,3 +1,4 @@
+using ToDoList.API.Entities;
 using ToDoList.API.Models;
 
 namespace ToDoList.API.Services.Interfaces

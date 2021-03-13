@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using ToDoList.API.DATA;
+using ToDoList.API.Entities;
 using ToDoList.API.Models;
 
-
-namespace ToDoList.DAL.Data
+namespace ToDoList.API.Helpers.Data
 {
     public class Seed
     {
@@ -20,7 +19,7 @@ namespace ToDoList.DAL.Data
                 return;
             }
             
-            var userData = await File.ReadAllTextAsync("Data/UserSeedData.json");
+            var userData = await File.ReadAllTextAsync("Helpers/Data/UserSeedData.json");
             var users = JsonConvert.DeserializeObject<List<AppUser>>(userData);
             var roles = new List<AppUserRole>
             {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ToDoList.API.Entities;
 using ToDoList.API.Models;
 
 namespace ToDoList.API.Services.Interfaces

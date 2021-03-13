@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ToDoList.API.DTO;
+using ToDoList.API.Entities;
 using ToDoList.API.Models;
 using ToDoList.API.Services.Interfaces;
 
@@ -40,7 +41,7 @@ namespace ToDoList.API.Controllers
                 UpdateDate = DateTime.Now
             };
             var createdAppUser = await _repository.Register(userToCreate, registerDto.Password);
-            return StatusCode(201);
+            return Ok(new {message = "User was successfuly created"});
         }
 
         [AllowAnonymous]

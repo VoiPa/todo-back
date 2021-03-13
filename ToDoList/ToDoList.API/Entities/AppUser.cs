@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ToDoList.API.Models.Common;
 
-namespace ToDoList.API.Models
+namespace ToDoList.API.Entities
 {
     public class AppUser : BaseEntity
     {

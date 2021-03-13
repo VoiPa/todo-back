@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using ToDoList.API.Entities;
 using ToDoList.API.Services.Interfaces;
 using ToDoList.API.Models;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;

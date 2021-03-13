@@ -3,7 +3,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ToDoList.API.DATA;
+using ToDoList.API.Entities;
+using ToDoList.API.Helpers.Data;
 using ToDoList.API.Services.Interfaces;
 using ToDoList.API.Models;
 
@@ -72,7 +73,7 @@ namespace ToDoList.API.Services.Implementations
 
             // create reset token that expires after 1 day
             account.ResetToken = randomTokenString();
-            account.ResetTokenExpires = DateTime.UtcNow.AddDays(1);
+            account.ResetTokenExpires = DateTime.UtcNow.AddMinutes(10);
 
             _context.Users.Update(account);
             _context.SaveChanges();

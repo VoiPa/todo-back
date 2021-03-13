@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ToDoList.API.DATA;
+using ToDoList.API.Entities;
+using ToDoList.API.Helpers.Data;
 using ToDoList.API.Models;
 using ToDoList.API.Services.Interfaces;
 
