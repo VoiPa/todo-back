@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
+using ToDoList.API.Models.Common;
 
-namespace ToDoList.BL.Models
+namespace ToDoList.API.Models
 {
     public class AppUser : BaseEntity
     {
         public AppUser()
         {
             Role = "role2";
+            
         }
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
@@ -15,6 +17,9 @@ namespace ToDoList.BL.Models
         public string Role { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
+        public string ResetToken { get; set; }
+        public DateTime? ResetTokenExpires { get; set; }
+        public DateTime? PasswordReset { get; set; }
 
         public IEnumerable<ToDoItem> ToDoItems{ get; set; }
         

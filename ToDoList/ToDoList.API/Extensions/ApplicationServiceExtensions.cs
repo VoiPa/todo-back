@@ -2,11 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using ToDoList.API.DATA;
 using ToDoList.API.Services.Implementations;
+using TodoList.API.MapperProfiles;
 using ToDoList.API.Services.Interfaces;
-using ToDoList.DAL;
-using ToDoList.DAL.Services.Implementations;
-using ToDoList.DAL.Services.Interfaces;
 
 namespace ToDoList.API.Extensions
 {
@@ -18,6 +17,12 @@ namespace ToDoList.API.Extensions
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IToDoItemsRepository, ToDoItemsRepository>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddAutoMapper(typeof(Startup), typeof(TodoItemProfile));
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseMySql(configuration.GetConnectionString("DefaultConnection"));

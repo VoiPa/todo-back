@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ToDoList.BL.Models;
-using ToDoList.DAL;
+using ToDoList.API.DATA;
+using ToDoList.API.Models;
 
 namespace ToDoList.API.Controllers
 {
-    public class ErrorController : BaseApiController
+    public class ErrorMiddlewareController : BaseApiController
     {
         private readonly ApplicationDbContext _context;
 
-        public ErrorController(ApplicationDbContext context)
+        public ErrorMiddlewareController(ApplicationDbContext context)
         {
             _context = context;
         }
