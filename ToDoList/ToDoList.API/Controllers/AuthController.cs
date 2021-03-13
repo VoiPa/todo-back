@@ -27,7 +27,7 @@ namespace ToDoList.API.Controllers
         /*
          * USER registration API
          */
-        public async Task<IActionResult> Register([FromQuery]RegisterDTO registerDto)
+        public async Task<IActionResult> Register(RegisterDTO registerDto)
         {
             registerDto.Email = registerDto.Email.ToLower();
             /* Checking if user exists */
@@ -47,7 +47,7 @@ namespace ToDoList.API.Controllers
         }
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult<UserDTO>> Login([FromQuery]LoginDTO loginDto)
+        public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDto)
         {
             var userFromRepo = await _repository.Login(loginDto.Email, loginDto.Password);
             if (userFromRepo == null)
