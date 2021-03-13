@@ -17,6 +17,7 @@ namespace ToDoList.API.Extensions
         {
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IToDoItemsRepository, ToDoItemsRepository>();
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseMySql(configuration.GetConnectionString("DefaultConnection"));
