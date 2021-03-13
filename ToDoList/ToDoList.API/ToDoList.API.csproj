@@ -3,19 +3,27 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
-
+    
     <ItemGroup>
-      <ProjectReference Include="..\ToDoList.BL\ToDoList.BL.csproj" />
-      <ProjectReference Include="..\ToDoList.DAL\ToDoList.DAL.csproj" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+      <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
+      <PackageReference Include="MailKit" Version="2.11.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.4" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.6.0" />
+      <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.2" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.0" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.6.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.4" />
-      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.6.0" />
-      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.0" />
-      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.6.0" />
+      <None Include="Data\UserSeedData.json" />
     </ItemGroup>
     
 </Project>

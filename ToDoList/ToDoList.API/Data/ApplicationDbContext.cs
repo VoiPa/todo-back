@@ -4,9 +4,10 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using ToDoList.BL.Models;
+using ToDoList.API.Models;
 
-namespace ToDoList.DAL
+
+namespace ToDoList.API.DATA
 {
     public class ApplicationDbContext:DbContext
     {

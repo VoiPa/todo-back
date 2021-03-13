@@ -1,4 +1,4 @@
-using ToDoList.BL.Models;
+using ToDoList.API.Models;
 
 namespace ToDoList.API.Services.Interfaces
 {

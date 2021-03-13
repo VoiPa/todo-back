@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using ToDoList.BL.Models.Errors;
+using ToDoList.API.Models.Errors;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace ToDoList.API.Middleware
