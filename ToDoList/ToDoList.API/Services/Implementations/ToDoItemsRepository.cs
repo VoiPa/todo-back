@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ToDoList.BL.Models;
-using ToDoList.DAL.Services.Interfaces;
+using ToDoList.API.DATA;
+using ToDoList.API.Models;
+using ToDoList.API.Services.Interfaces;
 
-namespace ToDoList.DAL.Services.Implementations
+namespace ToDoList.API.Services.Implementations
 {
     public class ToDoItemsRepository : IToDoItemsRepository
     {

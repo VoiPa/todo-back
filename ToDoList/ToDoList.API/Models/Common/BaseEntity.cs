@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ToDoList.BL
+namespace ToDoList.API.Models.Common
 {
     public class BaseEntity
     {

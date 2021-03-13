@@ -1,13 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ToDoList.API.DTO;
+using ToDoList.API.Models;
 using ToDoList.API.Services.Interfaces;
-using ToDoList.BL.Models;
-using ToDoList.DAL.Services.Interfaces;
 
 namespace ToDoList.API.Controllers
 {
@@ -15,19 +12,19 @@ namespace ToDoList.API.Controllers
     {
         private readonly IAuthRepository _repository;
         private readonly ITokenService _tokenService;
-        
+
         public AuthController(IAuthRepository repository, ITokenService tokenService)
         {
             _repository = repository;
             _tokenService = tokenService;
         }
-        
+
         [AllowAnonymous]
         [HttpPost("register")]
         /*
          * USER registration API
          */
-        public async Task<IActionResult> Register([FromQuery]RegisterDto registerDto)
+        public async Task<IActionResult> Register([FromQuery] RegisterDto registerDto)
         {
             registerDto.Email = registerDto.Email.ToLower();
             /* Checking if user exists */
@@ -42,12 +39,13 @@ namespace ToDoList.API.Controllers
                 CreateDate = DateTime.Now,
                 UpdateDate = DateTime.Now
             };
-           var createdAppUser= await _repository.Register(userToCreate, registerDto.Password);
+            var createdAppUser = await _repository.Register(userToCreate, registerDto.Password);
             return StatusCode(201);
         }
+
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult<UserDTO>> Login([FromQuery]LoginDTO loginDto)
+        public async Task<ActionResult<UserDTO>> Login([FromQuery] LoginDTO loginDto)
         {
             var userFromRepo = await _repository.Login(loginDto.Email, loginDto.Password);
             if (userFromRepo == null)
@@ -60,6 +58,22 @@ namespace ToDoList.API.Controllers
                 Email = userFromRepo.Email,
                 Token = _tokenService.CreateToken(userFromRepo)
             };
+        }
+
+        [AllowAnonymous]
+        [HttpPost("forgot-password")]
+        public IActionResult ForgotPassword([FromQuery] ForgotPasswordRequest model)
+        {
+            _repository.ForgotPassword(model, Request.Headers["origin"]);
+            return Ok(new {message = "Please check your email for password reset instructions"});
+        }
+        
+        [AllowAnonymous]
+        [HttpPost("reset-password")]
+        public IActionResult ResetPassword([FromQuery] ResetPasswordRequest model)
+        {
+            _repository.ResetPassword(model);
+            return Ok(new {message = "Password reset successful, you can now login"});
         }
     }
 }

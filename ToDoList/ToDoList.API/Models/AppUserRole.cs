@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using ToDoList.API.Models.Common;
 
-namespace ToDoList.BL.Models
+namespace ToDoList.API.Models
 {
     public class AppUserRole : BaseEntity
     {

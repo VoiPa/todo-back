@@ -1,4 +1,4 @@
-namespace ToDoList.BL.Models.Errors
+namespace ToDoList.API.Models.Errors
 {
     public class ApiException
     {

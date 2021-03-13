@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ToDoList.API.DTO;
-using ToDoList.BL.Models;
-using ToDoList.DAL;
-using ToDoList.DAL.Services.Interfaces;
+using ToDoList.API.Models;
+using ToDoList.API.DATA;
+using ToDoList.API.Services.Interfaces;
 
 namespace ToDoList.API.Controllers
 {

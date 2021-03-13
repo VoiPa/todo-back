@@ -1,8 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ToDoList.API.Models.Common;
 
-namespace ToDoList.BL.Models
+namespace ToDoList.API.Models
 {
     [Table("ToDoItems")]
     public class ToDoItem : BaseEntity

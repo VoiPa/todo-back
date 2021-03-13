@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ToDoList.BL.Models;
+using ToDoList.API.Models;
 
-namespace ToDoList.DAL.Services.Interfaces
+namespace ToDoList.API.Services.Interfaces
 {
     public interface IToDoItemsRepository
     {
