@@ -6,10 +6,6 @@ namespace ToDoList.BL.Models
 {
     public class AppUser : BaseEntity
     {
-        public AppUser()
-        {
-            Role = "role2";
-        }
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
