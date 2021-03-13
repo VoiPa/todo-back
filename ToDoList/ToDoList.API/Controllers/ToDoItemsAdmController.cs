@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ToDoList.API.DTO;
 using ToDoList.BL.Models;
 using ToDoList.DAL;
 using ToDoList.DAL.Services.Interfaces;
@@ -27,8 +28,8 @@ namespace ToDoList.API.Controllers
         }
 
         // Get all ToDo's
-        [HttpPost("admin")]
-        public async Task<ActionResult<IEnumerable<ToDoItem>>> GetAllAsync()
+        [HttpPost("view")]
+        public async Task<ActionResult<IEnumerable<ToDoItemDto>>> GetAllAsync()
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = _dbContext.Users.Single(a => a.Email == userIdent);
