@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ToDoList.API.Extensions;
+using TodoList.API.MapperProfiles;
 using ToDoList.API.Middleware;
 
 namespace ToDoList.API
@@ -23,6 +24,11 @@ namespace ToDoList.API
             services.AddApplicationServices(_configuration);
             services.AddControllers();
             services.AddIdentityServices(_configuration);
+            services.AddAutoMapper(typeof(Startup), typeof(TodoItemProfile));
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

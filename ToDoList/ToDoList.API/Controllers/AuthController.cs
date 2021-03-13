@@ -27,7 +27,7 @@ namespace ToDoList.API.Controllers
         /*
          * USER registration API
          */
-        public async Task<IActionResult> Register([FromQuery]RegisterDTO registerDto)
+        public async Task<IActionResult> Register([FromQuery]RegisterDto registerDto)
         {
             registerDto.Email = registerDto.Email.ToLower();
             /* Checking if user exists */

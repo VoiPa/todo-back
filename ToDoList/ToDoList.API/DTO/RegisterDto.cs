@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ToDoList.API.DTO
 {
-    public class RegisterDTO
+    public class RegisterDto
     {
         [Required]
         [EmailAddress]
