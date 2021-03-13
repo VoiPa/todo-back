@@ -9,9 +9,9 @@ namespace ToDoList.DAL.Services.Interfaces
         Task<IEnumerable<ToDoItem>> AllItemsAsync();
         Task<IEnumerable<ToDoItem>> GetIncompleteItemsAsync(AppUser currentUser);
         Task<IEnumerable<ToDoItem>> GetCompleteItemsAsync(AppUser currentUser);
-        bool Exists(int id);
-        Task<bool> UserExists(string email);
         Task<bool> DeleteTodoAsync(int id);
-       
+        Task<ToDoItem> GetItemAsync(int id);
+        Task<bool> AddItemAsync(ToDoItem todo, AppUser currentUser);
+        Task<bool> UpdateTodoAsync(ToDoItem todo, AppUser currentUser);
     }
 }
