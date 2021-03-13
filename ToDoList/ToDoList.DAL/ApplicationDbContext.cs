@@ -21,7 +21,9 @@ namespace ToDoList.DAL
                 context.Database.Migrate();
             }
         }
-        public virtual DbSet<AppUser> Users { get; set; } 
+        public virtual DbSet<AppUser> Users { get; set; }
+        public DbSet<AppUserRole> Roles { get; set; }
+        public DbSet<ToDoItem> ToDo { get; set; }
     }
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext> 
     { 
