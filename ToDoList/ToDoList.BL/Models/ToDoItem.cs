@@ -6,12 +6,10 @@ using System.Security.Cryptography;
 namespace ToDoList.BL.Models
 {
     [Table("ToDoItems")]
-    public class ToDoItem
+    public class ToDoItem : BaseEntity
     {
-        public int Id { get; set; }
-
         public int AppUserId { get; set; }
-        
+
         // prop for cascade delete relation
         public AppUser AppUser { get; set; }
 

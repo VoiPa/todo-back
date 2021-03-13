@@ -17,17 +17,33 @@ namespace ToDoList.DAL.Data
             {
                 return;
             }
-
+            
             var userData = await File.ReadAllTextAsync("../ToDoList.DAL/Data/UserSeedData.json");
             var users = JsonConvert.DeserializeObject<List<AppUser>>(userData);
-
+            var roles = new List<AppUserRole>
+            {
+                new AppUserRole {Name = "role1"},
+                new AppUserRole {Name = "role2"},
+            };
             foreach (var user in users)
             {
                 CreatePasswordHash("stringstringstring", out var passwordhash, out var passwordsalt);
+                user.Role = roles[1].Name;
                 user.PasswordHash = passwordhash;
                 user.PasswordSalt = passwordsalt;
                 context.Add(user);
             }
+            
+            var admin = new AppUser
+            {
+                Email = "admin@superadmin.lt",
+                Role = roles[0].Name
+                
+            };
+            CreatePasswordHash("Mypa77w0rdSlaptasLabai", out var passwordhashAdmin, out var passwordsaltAdmin);
+            admin.PasswordHash = passwordhashAdmin;
+            admin.PasswordSalt = passwordsaltAdmin;
+            context.Add(admin);
 
             await context.SaveChangesAsync();
         }
