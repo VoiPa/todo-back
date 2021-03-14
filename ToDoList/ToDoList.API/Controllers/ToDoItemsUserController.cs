@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,9 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ToDoList.API.DTO;
-using ToDoList.API.Models;
 using ToDoList.API.Entities;
-using ToDoList.API.Helpers.Data;
 using ToDoList.API.Services.Interfaces;
 
 namespace ToDoList.API.Controllers
@@ -19,15 +16,13 @@ namespace ToDoList.API.Controllers
     {
         private readonly IToDoItemsRepository _todoService;
         private readonly ILogger<ToDoItemsUserController> _logger;
-        private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
 
         public ToDoItemsUserController(IToDoItemsRepository todoService, ILogger<ToDoItemsUserController> logger,
-            ApplicationDbContext dbContext, IMapper mapper)
+            IMapper mapper)
         {
             _todoService = todoService;
             _logger = logger;
-            _dbContext = dbContext;
             _mapper = mapper;
         }
 
@@ -36,7 +31,7 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult<IEnumerable<ToDoItemDto>>> GetAllAsyncByUser()
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _dbContext.Users.Single(a => a.Email == userIdent);
+            var user = _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role2" && !string.IsNullOrEmpty(user.Email))
             {
                 _logger.LogError($"Unknown user tried getting all items.");
@@ -70,7 +65,7 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult<ToDoItem>> CreateItem([FromQuery] ToDoItemDto item)
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _dbContext.Users.Single(a => a.Email == userIdent);
+            var user = _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role2" && !string.IsNullOrEmpty(user.Email))
             {
                 _logger.LogError($"Unknown user tried getting all items.");
@@ -102,7 +97,7 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult<ToDoItem>> UpdateItemAsync([FromQuery] ToDoItemUpdateDto newItem, int id)
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _dbContext.Users.Single(a => a.Email == userIdent);
+            var user = _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role2" && !string.IsNullOrEmpty(user.Email))
             {
                 _logger.LogError($"Unknown user tried getting all items.");
@@ -143,7 +138,7 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult> DeleteItem(int id)
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _dbContext.Users.Single(a => a.Email == userIdent);
+            var user = _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role2" && !string.IsNullOrEmpty(user.Email))
             {
                 _logger.LogError($"Unknown user tried getting all items.");
