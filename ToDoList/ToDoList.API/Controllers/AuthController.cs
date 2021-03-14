@@ -41,7 +41,7 @@ namespace ToDoList.API.Controllers
                 UpdateDate = DateTime.Now
             };
             var createdAppUser = await _repository.Register(userToCreate, registerDto.Password);
-            return Ok(new {message = "User was successfuly created"});
+            return Ok(new {message = "User was successfuly created: {0}",createdAppUser});
         }
 
         [AllowAnonymous]

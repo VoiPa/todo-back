@@ -9,6 +9,8 @@ namespace ToDoList.API.Entities
         public AppUser()
         {
             Role = "role2";
+            CreateDate = DateTime.Now;
+            UpdateDate =DateTime.Now;
             
         }
         public string Email { get; set; }

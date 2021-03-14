@@ -1,6 +1,17 @@
 # todo-back
 # Application url: https://localhost:5001/swagger/index.html
 
+# default users:
+
+# Admin: 
+# username: admin@superadmin.lt
+# password: Mypa77w0rdSlaptasLabai
+
+# User:
+# username: first@cowtown.com
+# password: stringstringstring
+
+# Supplemente appsettings.json file with mail settings. You can find it in AppSettings block. Functionality was testing with gmail smtp server.
 
 Tikslas
 1. Sukurti „TO-DO list“ RESTful API aplikaciją (frontend dalis neprivaloma).
