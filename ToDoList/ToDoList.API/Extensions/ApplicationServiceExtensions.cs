@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using ToDoList.API.DATA;
+using ToDoList.API.Helpers.Data;
 using ToDoList.API.Services.Implementations;
 using TodoList.API.MapperProfiles;
 using ToDoList.API.Services.Interfaces;

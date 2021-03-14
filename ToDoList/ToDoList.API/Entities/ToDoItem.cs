@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ToDoList.API.Models.Common;
 
-namespace ToDoList.API.Models
+namespace ToDoList.API.Entities
 {
     [Table("ToDoItems")]
     public class ToDoItem : BaseEntity

@@ -3,13 +3,14 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ToDoList.API.DATA;
+using ToDoList.API.Entities;
+using ToDoList.API.Helpers.Data;
 using ToDoList.API.Services.Interfaces;
 using ToDoList.API.Models;
 
 namespace ToDoList.API.Services.Implementations
 {
-    public class AuthRepository:IAuthRepository
+    public class AuthRepository : IAuthRepository
     {
         private readonly ApplicationDbContext _context;
         private readonly IEmailService _emailService;
@@ -19,6 +20,7 @@ namespace ToDoList.API.Services.Implementations
             _context = context;
             _emailService = emailService;
         }
+
         public async Task<AppUser> Register(AppUser appUser, string password)
         {
             byte[] passwordHash, passwordSalt;
@@ -29,7 +31,7 @@ namespace ToDoList.API.Services.Implementations
             await _context.SaveChangesAsync();
             return appUser;
         }
-        
+
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
@@ -38,7 +40,7 @@ namespace ToDoList.API.Services.Implementations
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
-        
+
         public async Task<AppUser> Login(string email, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
@@ -47,14 +49,14 @@ namespace ToDoList.API.Services.Implementations
                 return null;
             }
 
-            if (!VerifyPasswordHash(password, user.PasswordHash,user.PasswordSalt))
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 return null;
             }
 
             return user;
         }
-        
+
         private string randomTokenString()
         {
             using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
@@ -63,6 +65,7 @@ namespace ToDoList.API.Services.Implementations
             // convert random bytes to hex string
             return BitConverter.ToString(randomBytes).Replace("-", "");
         }
+
         public void ForgotPassword(ForgotPasswordRequest model, string origin)
         {
             var account = _context.Users.SingleOrDefault(x => x.Email == model.Email);
@@ -70,29 +73,30 @@ namespace ToDoList.API.Services.Implementations
             // always return ok response to prevent email enumeration
             if (account == null) return;
 
-            // create reset token that expires after 1 day
+            // create reset token that expires after 10 minutes
             account.ResetToken = randomTokenString();
-            account.ResetTokenExpires = DateTime.UtcNow.AddDays(1);
-
+            account.ResetTokenExpires = DateTime.UtcNow.AddMinutes(10);
             _context.Users.Update(account);
             _context.SaveChanges();
 
             // send email
-            sendPasswordResetEmail(account, origin);
+            SendPasswordResetEmail(account, origin);
         }
-        
-        private void sendPasswordResetEmail(AppUser account, string origin)
+
+        private void SendPasswordResetEmail(AppUser account, string origin)
         {
             string message;
             if (!string.IsNullOrEmpty(origin))
             {
-                var resetUrl = $"{origin}/api/Auth/validate-reset-token?token={account.ResetToken}";
-                message = $@"<p>Please click the below link to reset your password, the link will be valid for 1 day:</p>
+                var resetUrl = $"{origin}/api/Auth/reset-password?token={account.ResetToken}";
+                message =
+                    $@"<p>Please click the below link to reset your password, the link will be valid for 10 minutes:</p>
                              <p><a href=""{resetUrl}"">{resetUrl}</a></p>";
             }
             else
             {
-                message = $@"<p>Please use the below token to reset your password with the <code>/api/Auth/validate-reset-token</code> api route:</p>
+                message =
+                    $@"<p>Please use the below token to reset your password with the <code>/api/Auth/reset-password</code> api route:</p>
                              <p><code>{account.ResetToken}</code></p>";
             }
 
@@ -103,7 +107,7 @@ namespace ToDoList.API.Services.Implementations
                          {message}"
             );
         }
-        
+
 
         public void ResetPassword(ResetPasswordRequest model)
         {
@@ -115,6 +119,7 @@ namespace ToDoList.API.Services.Implementations
             {
                 return;
             }
+
             // update password and remove reset token
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(model.Password, out passwordHash, out passwordSalt);
@@ -126,7 +131,6 @@ namespace ToDoList.API.Services.Implementations
 
             _context.Users.Update(account);
             _context.SaveChanges();
-            
         }
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
@@ -145,9 +149,10 @@ namespace ToDoList.API.Services.Implementations
 
             return true;
         }
+
         public async Task<bool> UserExists(string email)
         {
-            if (await _context.Users.AnyAsync(x => x.Email==email))
+            if (await _context.Users.AnyAsync(x => x.Email == email))
             {
                 return true;
             }

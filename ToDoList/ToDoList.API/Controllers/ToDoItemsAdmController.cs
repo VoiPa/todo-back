@@ -1,14 +1,11 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ToDoList.API.DATA;
 using ToDoList.API.DTO;
-using ToDoList.API.Models;
-using ToDoList.DAL;
+using ToDoList.API.Entities;
 using ToDoList.API.Services.Interfaces;
 
 namespace ToDoList.API.Controllers
@@ -18,14 +15,13 @@ namespace ToDoList.API.Controllers
     {
         private readonly IToDoItemsRepository _todoService;
         private readonly ILogger<ToDoItemsAdmController> _logger;
-        private readonly ApplicationDbContext _dbContext;
 
-        public ToDoItemsAdmController(IToDoItemsRepository todoService, ILogger<ToDoItemsAdmController> logger,
-            ApplicationDbContext dbContext)
+
+        public ToDoItemsAdmController(IToDoItemsRepository todoService, ILogger<ToDoItemsAdmController> logger)
         {
             _todoService = todoService;
             _logger = logger;
-            _dbContext = dbContext;
+          
         }
 
         // Get all ToDo's
@@ -33,7 +29,7 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult<IEnumerable<ToDoItemDto>>> GetAllAsync()
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _dbContext.Users.Single(a => a.Email == userIdent);
+            var user =  _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role1")
             {
                 _logger.LogError($"Unknown user tried getting all items.");
@@ -51,7 +47,7 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult> DeleteItem(int id)
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _dbContext.Users.Single(a => a.Email == userIdent);
+            var user = _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role1")
             {
                 _logger.LogError($"Unknown user tried getting all items.");

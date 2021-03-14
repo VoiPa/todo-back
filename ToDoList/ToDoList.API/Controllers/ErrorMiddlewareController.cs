@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ToDoList.API.DATA;
-using ToDoList.API.Models;
+using ToDoList.API.Entities;
+using ToDoList.API.Helpers.Data;
 
 namespace ToDoList.API.Controllers
 {

@@ -1,13 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using ToDoList.API.Entities;
 using ToDoList.API.Models;
 
-
-namespace ToDoList.API.DATA
+namespace ToDoList.API.Helpers.Data
 {
     public class ApplicationDbContext:DbContext
     {
@@ -23,7 +22,6 @@ namespace ToDoList.API.DATA
             }
         }
         public virtual DbSet<AppUser> Users { get; set; }
-        public DbSet<AppUserRole> Roles { get; set; }
         public DbSet<ToDoItem> ToDo { get; set; }
     }
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext> 

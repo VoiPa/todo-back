@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ToDoList.API.Entities;
 using ToDoList.API.Models;
 
 namespace ToDoList.API.Services.Interfaces
@@ -13,5 +14,6 @@ namespace ToDoList.API.Services.Interfaces
         Task<ToDoItem> GetItemAsync(int id);
         Task<bool> AddItemAsync(ToDoItem todo, AppUser currentUser);
         Task<bool> UpdateTodoAsync(ToDoItem todo, AppUser currentUser);
+        AppUser ValidateUserAsync(string email);
     }
 }

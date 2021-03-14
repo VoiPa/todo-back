@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using ToDoList.API.DATA;
-using ToDoList.DAL.Data;
+using ToDoList.API.Helpers.Data;
 
 namespace ToDoList.API
 {

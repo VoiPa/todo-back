@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ToDoList.API.DATA;
+using ToDoList.API.Entities;
+using ToDoList.API.Helpers.Data;
 using ToDoList.API.Models;
 using ToDoList.API.Services.Interfaces;
 
@@ -62,6 +63,11 @@ namespace ToDoList.API.Services.Implementations
             _context.ToDo.Add(todo);
             var saved = await _context.SaveChangesAsync();
             return saved > 0;
+        }
+
+        public AppUser ValidateUserAsync(string email)
+        {
+            return  _context.Users.Single(a => a.Email == email);
         }
 
         public async Task<bool> UpdateTodoAsync(ToDoItem editedTodo, AppUser user)
