@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ToDoList.API.DTO;
 using ToDoList.API.Entities;
 using ToDoList.API.Helpers.Data;
 using ToDoList.API.Services.Interfaces;

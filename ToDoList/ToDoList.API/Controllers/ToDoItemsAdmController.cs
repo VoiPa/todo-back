@@ -29,7 +29,7 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult<IEnumerable<ToDoItemDto>>> GetAllAsync()
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user =  _todoService.ValidateUserAsync(userIdent);
+            var user = await _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role1")
             {
                 _logger.LogError($"Unknown user tried getting all items.");
@@ -47,7 +47,7 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult> DeleteItem(int id)
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _todoService.ValidateUserAsync(userIdent);
+            var user = await _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role1")
             {
                 _logger.LogError($"Unknown user tried getting all items.");

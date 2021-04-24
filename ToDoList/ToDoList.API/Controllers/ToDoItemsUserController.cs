@@ -31,7 +31,7 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult<IEnumerable<ToDoItemDto>>> GetAllAsyncByUser()
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _todoService.ValidateUserAsync(userIdent);
+            var user = await _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role2" && !string.IsNullOrEmpty(user.Email))
             {
                 _logger.LogError($"Unknown user tried getting all items.");
@@ -65,7 +65,7 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult<ToDoItem>> CreateItem([FromQuery] ToDoItemDto item)
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _todoService.ValidateUserAsync(userIdent);
+            var user = await _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role2" && !string.IsNullOrEmpty(user.Email))
             {
                 _logger.LogError($"Unknown user tried getting all items.");
@@ -97,17 +97,12 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult<ToDoItem>> UpdateItemAsync([FromQuery] ToDoItemUpdateDto newItem, int id)
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _todoService.ValidateUserAsync(userIdent);
+            var user = await _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role2" && !string.IsNullOrEmpty(user.Email))
             {
                 _logger.LogError($"Unknown user tried getting all items.");
                 return Unauthorized();
             }
-
-            var items = new List<ToDoItem>();
-            items.AddRange(await _todoService.GetCompleteItemsAsync(user));
-            items.AddRange(await _todoService.GetIncompleteItemsAsync(user));
-            _logger.LogInformation("Returned all items for admin");
 
             var dbItem = await _todoService.GetItemAsync(id);
             if (dbItem == null)
@@ -130,7 +125,7 @@ namespace ToDoList.API.Controllers
             await _todoService.UpdateTodoAsync(dbItem, user);
 
             _logger.LogInformation($"Updated item with id {dbItem.Id}.");
-            return Ok(items);
+            return Ok();
         }
 
         // Delete item
@@ -138,7 +133,7 @@ namespace ToDoList.API.Controllers
         public async Task<ActionResult> DeleteItem(int id)
         {
             string userIdent = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _todoService.ValidateUserAsync(userIdent);
+            var user = await _todoService.ValidateUserAsync(userIdent);
             if (user.Role != "role2" && !string.IsNullOrEmpty(user.Email))
             {
                 _logger.LogError($"Unknown user tried getting all items.");

@@ -65,9 +65,9 @@ namespace ToDoList.API.Services.Implementations
             return saved > 0;
         }
 
-        public AppUser ValidateUserAsync(string email)
+        public async Task<AppUser> ValidateUserAsync(string email)
         {
-            return  _context.Users.Single(a => a.Email == email);
+            return await _context.Users.SingleAsync(a => a.Email == email);
         }
 
         public async Task<bool> UpdateTodoAsync(ToDoItem editedTodo, AppUser user)
